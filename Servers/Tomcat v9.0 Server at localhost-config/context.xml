@@ -30,14 +30,14 @@
     <!-- 커넥션 풀 환경 설정 -->
     <Resource
     	name="jdbc/myoracle"
-    	auth="Container"
-    	type="javax.sql.DataSource"
-    	url="jdbc:oracle:thin:@localhost:1521:XE"
-    	driverClassName="oracle.jdbc.driver.OracleDriver"
-    	username="web"
-    	password="1234"
-    	maxActive="200"
-    	maxIdle="100"
+	    auth="Container"
+	    type="javax.sql.DataSource"
+	    url="jdbc:oracle:thin:@121.164.91.191:1521:xe"
+	    driverClassName="oracle.jdbc.driver.OracleDriver"
+	    username="kh6semi"
+	    password="1234"
+	    maxActive="200"
+	    maxIdle="100"
     />
     
     <!-- 
