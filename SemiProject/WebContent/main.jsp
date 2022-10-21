@@ -10,16 +10,16 @@
 </head>
 <body>
 	<c:if test="${empty userId }">
-	<jsp:include page="../include/none_top.jsp" />
+	<jsp:include page="./include/none_top.jsp" />
 	</c:if>
 	
 	<c:if test="${!empty userId }">
-	<jsp:include page="../include/user_top.jsp" />
+	<jsp:include page="./include/user_top.jsp" />
 	</c:if>
 	<div>
 	
 	</div>
 	
-	<jsp:include page="../include/bottom.jsp" />
+	<jsp:include page="./include/bottom.jsp" />
 </body>
 </html>
