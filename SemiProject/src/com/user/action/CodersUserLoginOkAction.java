@@ -20,6 +20,10 @@ public class CodersUserLoginOkAction implements Action {
 		String userNickname = request.getParameter("nickname").trim();
 		String token = request.getParameter("token").trim();
 		
+		if(userId.equals("undefined")) {
+			userId = "User";
+		}
+		
 		UserDAO dao = UserDAO.getInstance();
 
 		int check = dao.UserSelect(userId);
@@ -37,7 +41,6 @@ public class CodersUserLoginOkAction implements Action {
 		  session.setAttribute("userId", userId);
 		  session.setAttribute("userNickname", userNickname);
 		  session.setAttribute("token", token);
-		  
 		  
 		  forward.setRedirect(false);
 		  

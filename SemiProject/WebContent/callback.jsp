@@ -61,11 +61,14 @@
 						/* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
 						naverLogin.reprompt();
 						return;
+					}else if( nickname == undefined || nickname == null) {
+						alert("닉네임은 필수정보입니다. 정보제공을 동의해주세요.");
+						/* (5-2) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
+						naverLogin.reprompt();
+						return;
 					}
 
 					window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/SemiProject/user_login_ok.do?id="+id+"&nickname="+nickname+"&token=naver");
-					<%-- window.location.href="<%=request.getContextPath()%>/user_login_ok.do?id="+id+"&nickname="+nickname+""; --%>
-					<%-- window.location.replace(<%=request.getContextPath()%>/user_login_ok.do?id="+id+"&nickname="+nickname+""); --%>
 				} else {
 					console.log("callback 처리에 실패하였습니다.");
 				}

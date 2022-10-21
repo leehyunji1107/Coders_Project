@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name ="google-signin-client_id" content="245672184873-e9t0u3q9anovb5il16eb6dkthv0r8go4.apps.googleusercontent.com">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="245672184873-e9t0u3q9anovb5il16eb6dkthv0r8go4.apps.googleusercontent.com">
 <title>Insert title here</title>
 <script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
@@ -43,13 +44,20 @@
 	// kako 로그인 end
 	
 	// google 로그인
-	function googleLogin(){
-		var profile = googleUser.getBasicProfile();
-		var id = profile.getEmail();
-		var nickname = profile.getNickName();
-		
-		location.href="<%=request.getContextPath()%>/user_login_ok.do?id="+id+"&nickname="+nickname+"&token=google";
-	}
+	function googleLogin() {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
 	
 </script>
 </head>
