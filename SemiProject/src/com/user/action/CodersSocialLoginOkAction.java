@@ -11,7 +11,7 @@ import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
 import com.coders.model.UserDAO;
 
-public class CodersUserLoginOkAction implements Action {
+public class CodersSocialLoginOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {

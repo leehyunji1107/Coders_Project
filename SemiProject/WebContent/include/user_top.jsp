@@ -37,7 +37,7 @@
 			
 		}
 	
-	function facebookLogout(){
+	function googleLogout(){
 		
 		location.href="<%=request.getContextPath()%>/user_logout_ok.do";	
 	}
@@ -74,8 +74,8 @@
 									<li><a class="dropdown-item" href="javascript:naverLogout();">로그아웃</a></li>
 								</c:if>
 								
-								<c:if test="${token == 'facebook' }">
-									<li><a class="dropdown-item" href="javascript:facebookLogout();">로그아웃</a></li>
+								<c:if test="${token == 'google' }">
+									<li><a class="dropdown-item" href="javascript:googleLogout();">로그아웃</a></li>
 								</c:if>
 							</ul>
 						</li>
