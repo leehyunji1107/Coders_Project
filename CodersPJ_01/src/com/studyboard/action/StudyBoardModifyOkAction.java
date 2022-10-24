@@ -42,77 +42,36 @@ public class StudyBoardModifyOkAction implements Action {
 	            "UTF-8",      //문자 인코딩 방식
 	            new DefaultFileRenamePolicy());   //파일 이름이 같은 경우 중복되지 않게 설정하는 생성자
 	      
-	      String studyboard_writer = 
-	      multi.getParameter("studyboard_writer").trim();
-	      
-	      String studyboard_title = 
-	      multi.getParameter("studyboard_title").trim();
+	      String study_title = 
+	      multi.getParameter("study_title").trim();
 	      
 	      String studyboard_cont = 
-	      multi.getParameter("studyboard_cont").trim();
+	      multi.getParameter("study_cont").trim();
 	      
-	      File studyboard_file = 
-	      multi.getFile("studyboard_file");
+	      int study_people = Integer.parseInt(multi.getParameter("study_people").trim());
+	      String study_start = multi.getParameter("study_start").trim();
+	      String study_end = multi.getParameter("study_end").trim();
+	
+	      
+	      File studyboard_file = multi.getFile("study_file");
 	      
 	      //히든으로 넘어온 값 받아주기
-	      
 	      int studyboard_no = 
-	      Integer.parseInt(multi.getParameter("studyboard_no").trim());
+	      Integer.parseInt(multi.getParameter("study_no").trim());
 	      
 	      //첨부파일이 존재하지 않은 경우
-	      if(studyboard_file != null) {
-	    	  
-	    	String fileName = studyboard_file.getName();
-	    	
-	    	 
-	    	  //날짜 객체 생성
-	    	  Calendar cal = Calendar.getInstance();
-	    	  
-	    	  int year = cal.get(Calendar.YEAR);
-	    	  
-	    	  int month = cal.get(Calendar.MONTH) + 1;
-	    	  
-	    	  int day = cal.get(Calendar.DAY_OF_MONTH);
-	    	  
-	    	  //....../upload/2022-10-11
-	    	 String homedir = 
-	    	  saveFolder+"/"+year+"-"+month+"-"+day;
-	    	 
-	    	 //날짜 폴더를 만들어 보자.
-	    	 File path1 = new File(homedir);
-	    	 
-	    	 if(!path1.exists()) { //폴더가 존재하지 않는 경우
-	    		 path1.mkdir();    //실제 폴더를 만들어 주는 메서드
-	    		 
-	    		 
-	    	 }
-	    	 
-	    	//파일을 만들어 보자 ==> 예) 홍길동_ 파일명
-	    	 //......./upload/2022-10-11/홍길동_파일명
-	    	 String reFileName = 
-	    			 studyboard_writer+"_"+fileName;
-	    	 
-	    	 studyboard_file.renameTo(new File(homedir+"/"+reFileName));
-	    	 
-	    	 //실제로 DB에 저장되는 파일 이름
-	    	 //"/2022-10-11/홍길동_파일명"으로 저장할 예정.
-	    	 String fileDBName = 
-	    	 "/"+year+"-"+month+"-"+day+"/"+reFileName;
-	    	 
-	    	 dto.setStudy_file(fileDBName);
-	    	
-	    }
-	      
+			if (studyboard_file != null) {
+				String study_file = multi.getFilesystemName("study_file");
+				dto.setStudy_file(study_file);
+			}
+			
 	      dto.setStudy_num(studyboard_no);
-	      
-	      dto.setStudy_title(studyboard_title);
-	      
-	      dto.setStudy_writer(studyboard_writer);
-	      
+	      dto.setStudy_title(study_title);
 	      dto.setStudy_cont(studyboard_cont);
-	      
-	      
-	      
+	      dto.setStudy_people(study_people);
+	      dto.setStudy_start(study_start);
+	      dto.setStudy_end(study_end);
+	         
 	      StudyBoardDAO dao = StudyBoardDAO.getInstance();
 	      
 	      int res = dao.modifyStudyboard(dto);
@@ -124,16 +83,14 @@ public class StudyBoardModifyOkAction implements Action {
 	     
 	     if(res > 0) {
 	    	  forward.setRedirect(true);
-	    	  
 	    	  forward.setPath("studyBoard_content.do?no="+studyboard_no);
-	      }else {
+	     
+	     }else {
 	    	  out.println("<script>");
 	    	  out.println("alert('실패')");
 	    	  out.println("history.back()");
 	    	  out.println("</script>");
-	    	  
 	      }
-  
 		return forward;
 	}
 
