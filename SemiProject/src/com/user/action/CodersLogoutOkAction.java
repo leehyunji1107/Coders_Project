@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
 
-public class CodersUserLogoutOkAction implements Action {
+public class CodersLogoutOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
