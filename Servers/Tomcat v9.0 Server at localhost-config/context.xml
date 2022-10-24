@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--><!-- The contents of this file will be loaded for each web application --><Context>
+
+    <!-- Default set of monitored resources. If one of these changes, the    -->
+    <!-- web application will be reloaded.                                   -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+    
+    <!-- 커넥션 풀 환경 설정 -->
+    <!-- <Resource
+    	name="jdbc/myoracle"
+	    auth="Container"
+	    type="javax.sql.DataSource"
+	    url="jdbc:oracle:thin:@121.164.91.191:1521:xe"
+	    driverClassName="oracle.jdbc.driver.OracleDriver"
+	    username="kh6semi"
+	    password="1234"
+	    maxActive="200"
+	    maxIdle="100"
+    /> -->
+    
+    <Resource
+    	name="jdbc/myoracle"
+    	auth="Container"
+    	type="javax.sql.DataSource"
+    	url="jdbc:oracle:thin:@localhost:1521:XE"
+    	driverClassName="oracle.jdbc.driver.OracleDriver"
+    	username="web"
+    	password="1234"
+    	maxActive="200"
+    	maxIdle="100"
+    />
+    
+    <!-- 
+    	name : 현재 리소스를 등록할 이름을 지정.
+    	auth : DBCP를 관리할 관리자 지정
+    		   (보통은 Container 또는 Application)
+		type : 리소스의 타입을 지정.
+			   커넥션 풀을 사용할 수 있도록 해 주는 객체의 반환 타입을 의미함. 
+		url : 접속할 DB 서버의 url을 지정.
+		driverClassName : DB 작업을 로딩할 드라이버.
+						  JDBC 방식에서 class.forName()의 인자값을 의미함.
+		username : DB 서버에 로그인할 계정을 지정.
+		password : DB 서버에 로그인할 계정의 비밀번호를 지정.
+		maxActive : 생성할 Connection 갯수를 지정. (기본은 20개)
+					동시에 최대로 데이터베이스에 연결할 수 있는 Connection 수를 말함.
+		maxIdle : 커넥션 풀에 여분으로 남겨질 최대 Connection 갯수를 지정,
+				  즉, 커넥션 풀을 유지하기 위한 최대 대기 커넥션 숫자를 말함.
+		maxWait : 사용 가능한 커넥션이 없을 때 커넥션의 회수(반납)를 기다리는 시간(MS) (1000 = 1초)   		   
+     -->
+     
+     
+     
+     
+     
+     
+     
+     
+</Context>
