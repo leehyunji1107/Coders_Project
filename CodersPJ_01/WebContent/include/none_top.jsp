@@ -13,15 +13,15 @@
 		window.open("../login.jsp", "a", "width=550, height=300, left=100, top=50");
 	}
 </script>
-<style type="text/css">
 
-a{
+<style type="text/css">
+.study_view_aTag{
   text-decoration: none;
   line-height: 48px;
   color: gray;
 }
 
-#container {
+#studyListContainer {
   display: flex;
   width: 50em;
   padding-top: 10px;
@@ -57,7 +57,6 @@ font-size: 1.1em;
 }
 
 </style>
-
 </head>
 <body>
 	<header>
@@ -83,3 +82,5 @@ font-size: 1.1em;
 			</div>
 		</nav>
 	</header>
+</body>
+</html>

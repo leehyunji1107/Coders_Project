@@ -68,7 +68,7 @@
 						return;
 					}
 
-					window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/SemiProject/user_login_ok.do?id="+id+"&nickname="+nickname+"&token=naver");
+					window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/SemiProject/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=naver");
 				} else {
 					console.log("callback 처리에 실패하였습니다.");
 				}

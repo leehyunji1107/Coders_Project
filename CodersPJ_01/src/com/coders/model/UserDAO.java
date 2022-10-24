@@ -136,7 +136,7 @@ public class UserDAO {
 			openConn();
 			
 			try {
-				sql = "insert into user_member values(?, ?, sysdate, '', '')";
+				sql = "insert into user_member values(?, ?, sysdate, '', '', '')";
 				
 				pstmt = con.prepareStatement(sql);
 				

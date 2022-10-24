@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,52 +8,41 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<style type="text/css">
-
-a{
-  text-decoration: none;
-  line-height: 48px;
-  color: gray;
-}
-
-#container {
-  display: flex;
-  width: 50em;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin: auto;
-}
-
-.study_view_left {
-  flex: 1;
-}
-
-.study_view_left2{
-  display: table-cell;
-  vertical-align: middle;
-  text-align: right;
-}
-
-.study_view_center {
-  align-items: center;
-  flex: 3;
-  text-align: left;
-  font-size: 1.2em;
-}
-.study_view_right {
-  flex: 1;
-  text-align: right;
-}
-.studyViewDate{
-font-size: 0.8em;
-}
-.studyViewWriter{
-font-size: 1.1em;
-}
-
-</style>
-
-
+<script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script type="text/javascript">
+	Kakao.init('8fa233a3b298fd44817a61f49898727e');
+	console.log( Kakao.isInitialized() );
+	
+	//카카오로그아웃  
+	function kakaoLogout() {
+		
+	    if (Kakao.Auth.getAccessToken()) {
+	      Kakao.API.request({
+	        url: '/v1/user/unlink',
+	        success: function (response) {
+	        	console.log(response)
+	        	location.href="<%=request.getContextPath()%>/user_logout_ok.do";
+	        },
+	        fail: function (error) {
+	          console.log(error)
+	        },
+	      })
+	      Kakao.Auth.setAccessToken(undefined)
+	    }
+	  }
+	
+	function naverLogout() {
+		location.href="<%=request.getContextPath()%>/user_logout_ok.do";			
+			
+		}
+	
+	function googleLogout(){
+		
+		location.href="<%=request.getContextPath()%>/user_logout_ok.do";	
+	}
+	
+</script>
 </head>
 <body>
 	<header>
@@ -76,7 +66,17 @@ font-size: 1.1em;
 							</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#">프로필 보기</a></li>
-								<li><a class="dropdown-item" href="#">로그아웃</a></li>
+								<c:if test="${token == 'kakao' }">
+									<li><a class="dropdown-item" href="javascript:kakaoLogout();">로그아웃</a></li>
+								</c:if>
+								
+								<c:if test="${token == 'naver' }">
+									<li><a class="dropdown-item" href="javascript:naverLogout();">로그아웃</a></li>
+								</c:if>
+								
+								<c:if test="${token == 'google' }">
+									<li><a class="dropdown-item" href="javascript:googleLogout();">로그아웃</a></li>
+								</c:if>
 							</ul>
 						</li>
 					</ul>

@@ -13,13 +13,13 @@
 
 <style type="text/css">
 
-a{
+.study_view_aTag{
   text-decoration: none;
   line-height: 48px;
   color: gray;
 }
 
-#container {
+#studyListContainer {
   display: flex;
   width: 50em;
   padding-top: 10px;
@@ -59,8 +59,6 @@ font-size: 1.1em;
 </head>
 <body>
 
-<br>
-
 	<c:if test="${empty userId }">
 	<jsp:include page="../include/none_top.jsp" />
 	</c:if>
@@ -79,7 +77,7 @@ font-size: 1.1em;
 				<c:forEach items="${list }" var="dto">
 
 
-				<div id="container" class="border-top border-bottom">
+				<div id="studyListContainer" class="border-top border-bottom">
 					<div class="study_view_left">
 						<div>${dto.getStudy_hit() }</div>
 						<div>${dto.getStudy_hit() }</div>
@@ -90,7 +88,7 @@ font-size: 1.1em;
 					</div>
 
 					<div class="study_view_center">
-						<a href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
+						<a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
 							style="display: block;"> &nbsp;${dto.getStudy_title() }</a>
 							<!-- a태그에 style="display: block;" 하면 제목있는 부분 전체가 링크가 된다 -->
 					</div>

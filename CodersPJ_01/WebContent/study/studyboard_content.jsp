@@ -103,7 +103,7 @@
 							src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
 							alt="" />
 					</p>
-					<p class="card-text">${dto.getStudy_cont() }</p>
+					<p class="card-text"><textarea class="form-control">${dto.getStudy_cont() }</textarea></p>
 					<br> <span class="btn btn-outline-dark"><i
 						class="fa-regular fa-calendar-days"></i>
 						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
