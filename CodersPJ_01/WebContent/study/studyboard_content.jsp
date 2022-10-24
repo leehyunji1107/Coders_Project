@@ -47,6 +47,23 @@
   color: black;
   font-size: 1.1em;	
  }
+ 
+ .replyRap{
+ margin: auto;
+ width: 600px;
+ display: flex;
+ margin: auto;
+ }
+ 
+ #re_content{
+ width: 502px;
+ }
+ 
+ .btn.btn-outline-secondary{
+ font-size: 1em;
+ padding-left: 10px;
+ padding-right: 10px;
+ }
 
 </style>
 	
@@ -54,45 +71,169 @@
 </head>
 <body>
 
-	<c:set var="dto" value="${Cont }" />
+	<c:if test="${empty userId }">
+	<jsp:include page="../include/none_top.jsp" />
+	</c:if>
+	
+	<c:if test="${!empty userId }">
+	<jsp:include page="../include/user_top.jsp" />
+	</c:if>
 	<br>
-<div class="align-middle">
-	<div class="container col-md-6" style="width: 600px;">
-		<div class="card">
-			<div class="card-body">
-				<h4 class="card-title mb-3">${dto.getStudy_title() }</h4>
-				<h6 class="card-subtitle text-muted mb-4">
-				<i class="fa-regular fa-user"></i>${dto.getStudy_writer() }
-				&nbsp;
-				<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()}
-				&nbsp;
-				<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
-				</h6>
-				<span class="studyEditDelete"><a class="studyEditIcon" href="studyboard_modify.do?no=${dto.getStudy_num() }"><i class="fa-solid fa-scissors"></i></a>&nbsp;
-				<a class="studyDeleteIcon" onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }'} else {return; }"><i class="fa-solid fa-trash"></i></a></span>
-				<br> <br>
-				<p><img src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}" alt="" /></p>
-				<p class="card-text">${dto.getStudy_cont() }</p>
-				<br>
-				<span class="btn btn-outline-dark"><i class="fa-regular fa-calendar-days"></i>  ${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
-				&nbsp;
-				<span class="btn btn-outline-dark"><i class="fa-solid fa-person"></i>  ${dto.study_people }</span>
-			</div>
-			<div class="card-body">
-			
-			
-				            
-				       
-			</div>
-			<div class="card-body">
 
+	<c:set var="dto" value="${Cont }" />
 
-  
+	<div class="align-middle">
+		<div class="container col-md-6" style="width: 600px;">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title mb-3">${dto.getStudy_title() }</h4>
+					<h6 class="card-subtitle text-muted mb-4">
+						<i class="fa-regular fa-user"></i>${dto.getStudy_writer() } &nbsp;
+						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
+						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
+					</h6>
+					<span class="studyEditDelete"><a class="studyEditIcon"
+						href="studyboard_modify.do?no=${dto.getStudy_num() }"><i
+							class="fa-solid fa-scissors"></i></a>&nbsp; <a
+						class="studyDeleteIcon"
+						onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }'} else {return; }"><i
+							class="fa-solid fa-trash"></i></a></span> <br> <br>
+					<p>
+						<img class="card-img"
+							src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
+							alt="" />
+					</p>
+					<p class="card-text">${dto.getStudy_cont() }</p>
+					<br> <span class="btn btn-outline-dark"><i
+						class="fa-regular fa-calendar-days"></i>
+						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
+					&nbsp; <span class="btn btn-outline-dark"><i
+						class="fa-solid fa-person"></i> ${dto.study_people }</span>
+				</div>
 			</div>
 		</div>
 	</div>
+	
+	<br>
+	
+	<div class="replyRap">
+	<input class="form-control re_cont" name="re_content" id="re_content">
+	&nbsp;&nbsp;
+	<span class="btn btn-outline-secondary">댓글쓰기</span>
 	</div>
+	
+	
+	 <div>
+	      <table class="list" cellspacing="0" width="400">
+	         
+	         <tr class="line">
+	            <td>댓글내용</td> <td>작성일자</td>
+	         </tr>
+	     </table>
+	  </div>
+	  
+	  
+	  
+	
+	<jsp:include page="../include/bottom.jsp" />
 
-<script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+     $(function() {
+	
+	// ajax에서 동일하게 사용되는 속성 설정
+	$.ajaxSetup({
+		// ajax에서 한글 깨짐 문제 해결
+		ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
+		type : "post"
+	});
+	
+	
+	// TBL_REPLY 테이블의 모든 데이터를 가져오는 함수
+	function getList() {
+		
+		$.ajax({
+			url : "/CodersPJ_01/study/studyboard_reply.jsp",
+			data : {scomment_num : ${dto.study_num } },
+			datatype : "xml",    // 결과 데이터 타입
+			success : function(data) {
+				// 테이블 태그의 타이틀태그를 제외한 
+				// 댓글 목록을 지우는 명령어.
+				$(".list tr:gt(1)").remove();
+				
+				let table = "";
+				
+				$(data).find("reply").each(function() {
+					table += "<tr>";
+					table += "<td colspan='2'>" + $(this).find("rewriter").text() +"</td>";
+					table += "</tr>";
+					
+					table += "<tr>";
+					table += "<td>" + $(this).find("recont").text() + "</td>";
+					table += "<td>" + $(this).find("redate").text() + "</td>";
+					table += "</tr>";
+					
+					table += "<tr>";
+					table += "<td colspan='2'>&nbsp;</td>";
+					table += "</tr>";
+				});
+				
+				$(".list tr:eq(1)").after(table);
+			},
+			
+			
+			error : function() {
+				alert('데이터 통신 에러');
+			}
+		
+		});
+	}  // getList() 함수 end
+	
+	
+	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
+	$("#replyBtn").on("click", function() {
+		
+		$.ajax({
+			url : "/CodersPJ_01/studyboard_reply_insert.do",
+			datatype : "text",
+			data : {
+					writer : $("#re_writer").val(),
+				    content : $("#re_content").val(),
+				    study_num : ${dto.study_num }
+					},
+			success : function(data) {
+					if(data > 0) {
+						alert('댓글 작성 완료');
+						
+					
+						// 댓글 작성 후 다시 전체 댓글 리스트를
+						// 화면에 뿌려주면 됨.
+						getList();
+						
+						
+						
+						// input 태그에 입력된 내용을 지워줌.
+						$("input[type=text]").each(function() {
+							$(this).val("");  // 입력된 값 지우기
+						});
+					
+					}else {
+						alert('댓글 추가가 실패 하였습니다.');
+					}
+			},
+			
+			error : function() {
+				alert('데이터 통신 오류입니다.');
+			}
+		});
+	});  // 댓글 등록하기 end
+	
+	
+	getList();  // 전체 리스트 함수 호출
+	
+});
+</script>
+
+	<script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 </body>
 </html>

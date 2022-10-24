@@ -231,22 +231,29 @@ public class StudyBoardDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				if (dto.getStudy_file() == null) { // 첨부파일을 새로 추가하지 않고 넣은 경우
-					sql = "update study_group set study_title = ?, study_cont = ?, study_update = sysdate where study_num = ?";
+					sql = "update study_group set study_title =?, study_cont=?, study_people=?, study_start=?, study_end=?, study_update=sysdate where study_num=?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, dto.getStudy_title());
 					pstmt.setString(2, dto.getStudy_cont());
-					pstmt.setInt(3, dto.getStudy_num());
-					result = pstmt.executeUpdate();
+					pstmt.setInt(3, dto.getStudy_people());
+					pstmt.setString(4, dto.getStudy_start());
+					pstmt.setString(5, dto.getStudy_end());
+					pstmt.setInt(6, dto.getStudy_num());
+
 				} else {// 수정 폼 창에서 첨부파일이 있는(선택한) 경우
 
-					sql = "update study_group set study_title = ?, study_cont = ?, study_file = ?, "
-							+ "study_update = sysdate where study_num = ?";
+					sql = "update study_group set study_title=?, study_cont=?, study_people=?, study_start=?, study_end=?, study_file=?, "
+							+ "study_update=sysdate where study_num=?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, dto.getStudy_title());
 					pstmt.setString(2, dto.getStudy_cont());
-					pstmt.setString(3, dto.getStudy_file());
-					pstmt.setInt(4, dto.getStudy_num());
+					pstmt.setInt(3, dto.getStudy_people());
+					pstmt.setString(4, dto.getStudy_start());
+					pstmt.setString(5, dto.getStudy_end());
+					pstmt.setString(6, dto.getStudy_file());
+					pstmt.setInt(7, dto.getStudy_num());
 				}
+				result = pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
