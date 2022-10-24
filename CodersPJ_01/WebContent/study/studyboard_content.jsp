@@ -103,7 +103,7 @@
 							src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
 							alt="" />
 					</p>
-					<p class="card-text"><textarea class="form-control">${dto.getStudy_cont() }</textarea></p>
+					<p class="card-text"><textarea class="form-control" style="border:white;" readonly>${dto.getStudy_cont() }</textarea></p>
 					<br> <span class="btn btn-outline-dark"><i
 						class="fa-regular fa-calendar-days"></i>
 						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
@@ -229,8 +229,19 @@
 	});  // 댓글 등록하기 end
 	
 	
-	getList();  // 전체 리스트 함수 호출
 	
+	
+	function adjustHeight() {
+		  var textEle = $('textarea');
+		  textEle[0].style.height = 'auto';
+		  var textEleHeight = textEle.prop('scrollHeight');
+		  textEle.css('height', textEleHeight+8);
+		};
+
+	getList();  // 전체 리스트 함수 호출
+	adjustHeight();
+	
+
 });
 </script>
 

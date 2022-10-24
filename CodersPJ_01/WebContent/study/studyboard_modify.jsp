@@ -57,7 +57,7 @@
 						<input class="form-control" class="card-img" type="file" name="study_file">
 					</p>
 					<p class="card-text">
-					<textarea class="form-control" id="study_cont" name="study_cont">${dto.getStudy_cont() }</textarea>
+					<textarea onkeyup="adjustHeight();" class="form-control" id="study_cont" name="study_cont">${dto.getStudy_cont() }</textarea>
 					</p>
 					
 					<div class="mb-3 row">
@@ -100,6 +100,20 @@
 	
 	
 	<jsp:include page="../include/bottom.jsp" />
+	
+	<script type="text/javascript">
+	
+	function adjustHeight() {
+		  var textEle = $('textarea');
+		  textEle[0].style.height = 'auto';
+		  var textEleHeight = textEle.prop('scrollHeight');
+		  textEle.css('height', textEleHeight+8);
+		};
+
+	getList();  // 전체 리스트 함수 호출
+	adjustHeight();
+	
+	</script>
 
 
 	<script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
