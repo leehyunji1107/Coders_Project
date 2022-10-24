@@ -17,7 +17,7 @@
 	<jsp:include page="./include/user_top.jsp" />
 	</c:if>
 	<div>
-	
+	<p></p>
 	</div>
 	
 	<jsp:include page="./include/bottom.jsp" />
