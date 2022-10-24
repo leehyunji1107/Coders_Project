@@ -25,6 +25,28 @@
  .container col-md-6{
  margin: auto;
  }
+ 
+ .studyEditDelete{
+ margin-left: 515px;
+ }
+ 
+ .studyEditIcon{
+  color: black;
+ }
+ 
+ .studyEditIcon:hover{
+  font-size: 1.1em;
+  color: black;
+ }
+ 
+ .studyDeleteIcon{
+  color: black;
+ }
+ 
+ .studyDeleteIcon:hover {
+  color: black;
+  font-size: 1.1em;	
+ }
 
 </style>
 	
@@ -44,15 +66,22 @@
 				&nbsp;
 				<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()}
 				&nbsp;
-				<i class="fa-solid fa-eye"></i> ${dto.getStudy_hit() }            
+				<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
 				</h6>
+				<span class="studyEditDelete"><a class="studyEditIcon" href="studyboard_modify.do?no=${dto.getStudy_num() }"><i class="fa-solid fa-scissors"></i></a>&nbsp;
+				<a class="studyDeleteIcon" onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }'} else {return; }"><i class="fa-solid fa-trash"></i></a></span>
 				<br> <br>
 				<p><img src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}" alt="" /></p>
 				<p class="card-text">${dto.getStudy_cont() }</p>
+				<br>
+				<span class="btn btn-outline-dark"><i class="fa-regular fa-calendar-days"></i>  ${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
+				&nbsp;
+				<span class="btn btn-outline-dark"><i class="fa-solid fa-person"></i>  ${dto.study_people }</span>
 			</div>
 			<div class="card-body">
+			
+			
 				            
-				
 				       
 			</div>
 			<div class="card-body">
